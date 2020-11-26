@@ -1,59 +1,93 @@
-import React, {useState, ChangeEvent, KeyboardEvent} from 'react';
-import {Button, IconButton, TextField} from '@material-ui/core';
-import {AddBox, TextFields} from '@material-ui/icons';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from '@material-ui/core';
+import {AddBox} from '@material-ui/icons';
 
-type AddItemFormType = {
-    addItem: (title: string) => void
+type AddItemFormPropsType = {
+    onAddItemClick: (title: string) => void
 }
 
-export function AddItemForm(props: AddItemFormType) {
-    let [title, setTitle] = useState<string>('');
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+    console.log('AddItemForm is called')
+    let [newTaskTitle, setNewTaskTitle] = useState('');
     let [error, setError] = useState<string | null>(null);
 
     const onAddItemClick = () => {
-        if (title.trim() !== '') {
-            props.addItem(title);
+        if (newTaskTitle.trim() !== '') {
+            props.onAddItemClick(newTaskTitle.trim());
         } else {
             setError('Title is required')
         }
-        setTitle('');
+        setNewTaskTitle('');
     }
 
-    const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setError(null);
-        setTitle(e.currentTarget.value)
+        setNewTaskTitle(e.currentTarget.value);
     }
-    const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null);
+        }
         if (e.charCode === 13) {
-            onAddItemClick()
+            onAddItemClick();
         }
     }
+
     return (
         <div onBlur={() => setError(null)}>
             <TextField
                 variant={'outlined'}
-                value={title}
-                onChange={onTitleChange}
-                onKeyPress={onKeyPressAddItem}
                 error={!!error}
-                label={'Title'}
+                label='Title'
+                value={newTaskTitle}
+                onChange={onTitleChangeHandler}
+                onKeyPress={onKeyPressHandler}
                 helperText={error}
-                //className={error ? 'error' : ''}
             />
-            {/*<input*/}
-            {/*    type='text'*/}
-            {/*    value={title}*/}
-            {/*    onChange={onTitleChange}*/}
-            {/*    onKeyPress={onKeyPressAddItem}*/}
-            {/*    className={error ? 'error' : ''}*/}
-            {/*/>*/}
-            <IconButton color={'primary'} onClick={onAddItemClick}>
-                <AddBox />
-            </IconButton>
-            {/*<Button*/}
-            {/*    variant={'contained'} color={'primary'} onClick={onAddItemClick}>+</Button>*/}
-            {/*{error && <div className={'error-message'}>{error}</div>}*/}
+            <IconButton onClick={onAddItemClick} color={'primary'}><AddBox /></IconButton>
         </div>
-    );
-}
+    )
+});
+
+
+//c 1 по 6 урок Todolist for students (до добавления material-ui) =>
+
+// export function AddItemForm(props: AddItemFormPropsType) {
+//     let [newTaskTitle, setNewTaskTitle] = useState('');
+//     let [error, setError] = useState<string | null>(null);
+//
+//     const onAddItemClick = () => {
+//         if (newTaskTitle.trim() !== '') {
+//             props.onAddItemClick(newTaskTitle.trim());
+//         } else {
+//             setError('Title is required')
+//         }
+//         setNewTaskTitle('');
+//     }
+//
+//     const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+//         setError(null);
+//         setNewTaskTitle(e.currentTarget.value);
+//     }
+//
+//     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+//         setError(null);
+//         if (e.charCode === 13) {
+//             onAddItemClick();
+//         }
+//     }
+//     return (
+//         <div onBlur={() => setError(null)}>
+//             <input
+//                 className={error ? 'error' : ''}
+//                 value={newTaskTitle}
+//                 onChange={onTitleChangeHandler}
+//                 onKeyPress={onKeyPressHandler}
+//             />
+//             <button onClick={onAddItemClick}>+</button>
+//             {error && <div className='error-massage'>{error}</div>}
+//         </div>
+//     )
+//
+// }
