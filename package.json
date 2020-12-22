@@ -14,6 +14,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.11",
     "@types/uuid": "^8.3.0",
+    "axios": "^0.21.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.2",
@@ -26,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
@@ -50,6 +51,10 @@
     "@storybook/addon-links": "^6.1.8",
     "@storybook/node-logger": "^6.1.8",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.8"
+    "@storybook/react": "^6.1.8",
+    "jest-image-snapshot": "^4.3.0",
+    "jest-puppeteer": "^4.4.0",
+    "puppeteer": "^5.5.0",
+    "start-server-and-test": "^1.11.6"
   }
 }

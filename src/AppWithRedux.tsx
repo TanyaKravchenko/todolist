@@ -15,7 +15,7 @@ import {
 } from './state/todolists-reducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootState} from './state/store';
+import {AppRootStateType} from './state/store';
 
 export type TaskType = {
     id: string
@@ -40,8 +40,8 @@ let paddingStyle: CSSProperties = {padding: '25px'};
 function AppWithRedux() {
     console.log('App is called')
     const dispatch = useDispatch();
-    const todoLists = useSelector<AppRootState, Array<TodoListType>>(state => state.todoLists);
-    const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks);
+    const todoLists = useSelector<AppRootStateType, Array<TodoListType>>(state => state.todoLists);
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
 
     const removeTask = useCallback((id: string, todoListId: string) => {
         dispatch(removeTaskAC(id, todoListId))
