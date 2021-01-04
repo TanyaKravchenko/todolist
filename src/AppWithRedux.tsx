@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {TodoList} from './components/TodoList';
 import {AddItemForm} from './components/AddItemForm';
@@ -10,7 +10,7 @@ import {CSSProperties} from '@material-ui/core/styles/withStyles';
 import {
     addTodoListAC,
     changeTodolistFilterAC,
-    changeTodoListTitleAC, FilterValuesType,
+    changeTodoListTitleAC, fetchTodolistsTC, FilterValuesType,
     removeTodoListAC, TodoListDomainType,
 } from './state/todolists-reducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
@@ -26,10 +26,13 @@ export type TasksStateType = {
 let paddingStyle: CSSProperties = {padding: '25px'};
 
 function AppWithRedux() {
-    console.log('App is called')
     const dispatch = useDispatch();
     const todoLists = useSelector<AppRootStateType, Array<TodoListDomainType>>(state => state.todoLists);
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
+
+    useEffect(() => {
+        dispatch(fetchTodolistsTC())
+    }, [])
 
     const removeTask = useCallback((id: string, todoListId: string) => {
         dispatch(removeTaskAC(id, todoListId))
