@@ -1,12 +1,8 @@
 import React from 'react';
-import {Story, Meta} from '@storybook/react/types-6-0';
+import {Story} from '@storybook/react/types-6-0';
 import {action} from '@storybook/addon-actions';
 import {Task, TaskPropsType} from './Task';
-
-export default {
-    title: 'TodoList/Task',
-    component: Task
-} as Meta;
+import {TaskPriorities, TaskStatuses} from '../api/todolist-api';
 
 const removeTaskCallback = action('Remove button inside Task clicked');
 const changeStatusTaskCallback = action('Status changed inside Task');
@@ -19,8 +15,8 @@ TaskIsDoneExample.args = {
     changeTaskStatus: changeStatusTaskCallback,
     changeTaskTitle: changeTitleTaskCallback,
     removeTask: removeTaskCallback,
-    task: {id: '1', isDone: true, title: 'React'},
-    todoListId: 'todoList'
+    task: {id: '1', status: TaskStatuses.Completed, title: 'React', description: '', priority: TaskPriorities.Low, startDate: '', deadline: '', todoListId: 'todoListId1', order: 0, addedDate: ''},
+    todoListId: 'todoListId1'
 }
 
 export const TaskIsNotDoneExample = Template.bind({});
@@ -28,8 +24,8 @@ TaskIsNotDoneExample.args = {
     changeTaskStatus: changeStatusTaskCallback,
     changeTaskTitle: changeTitleTaskCallback,
     removeTask: removeTaskCallback,
-    task: {id: '2', isDone: false, title: 'HTML'},
-    todoListId: 'todoList'
+    task: {id: '2', status: TaskStatuses.New, title: 'HTML', description: '', priority: TaskPriorities.Low, startDate: '', deadline: '', todoListId: 'todoListId2', order: 0, addedDate: ''},
+    todoListId: 'todoListId2'
 }
 
 
