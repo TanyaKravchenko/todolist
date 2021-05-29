@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {IconButton, TextField} from '@material-ui/core';
 import {AddBox} from '@material-ui/icons';
+import s from './AddItemForm.module.css'
 
 export type AddItemFormPropsType = {
     onAddItemClick: (title: string) => void
@@ -35,7 +36,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     }
 
     return (
-        <div onBlur={() => setError(null)}>
+        <div className={s.TextFieldContainer} onBlur={() => setError(null)}>
             <TextField
                 variant={'outlined'}
                 error={!!error}
